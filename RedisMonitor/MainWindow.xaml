@@ -1,0 +1,85 @@
+﻿<Window x:Class="RedisMonitor.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RedisMonitor"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <TextBox Grid.Row="0" Grid.Column="0"
+                 x:Name="host">localhost</TextBox>
+        <TextBox Grid.Row="0" Grid.Column="1"
+                 x:Name="port">6379</TextBox>
+        <Button Grid.Row="0" Grid.Column="2"
+            Click="ConnectToRedis">Connect</Button>
+
+        <ListView Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"
+                  x:Name="Clients">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding Id}"
+                                     Header="Id" />
+                    <GridViewColumn DisplayMemberBinding="{Binding Host}"
+                                     Header="Host" />
+                    <GridViewColumn DisplayMemberBinding="{Binding Port}"
+                                     Header="Port" />
+                    <GridViewColumn DisplayMemberBinding="{Binding AgeSeconds}"
+                                     Header="Age (s)" />
+                    <GridViewColumn DisplayMemberBinding="{Binding ClientType}"
+                                     Header="Type" />
+                    <GridViewColumn DisplayMemberBinding="{Binding Database}"
+                                     Header="Database" />
+                    <GridViewColumn DisplayMemberBinding="{Binding Flags}"
+                                     Header="Flags" />
+                    <GridViewColumn DisplayMemberBinding="{Binding FlagsRaw}"
+                                     Header="Flags (raw)" />
+                    <GridViewColumn DisplayMemberBinding="{Binding IdleSeconds}"
+                                     Header="Idle (s)" />
+                    <GridViewColumn DisplayMemberBinding="{Binding LastCommand}"
+                                     Header="Last command" />
+                    <GridViewColumn DisplayMemberBinding="{Binding Name}"
+                                     Header="Name" />
+                    <GridViewColumn DisplayMemberBinding="{Binding PatternSubscriptionCount}"
+                                     Header="PSUBSCRIBE count" />
+                    <GridViewColumn DisplayMemberBinding="{Binding SubscriptionCount}"
+                                     Header="SUBSCRIBE count" />
+                    <GridViewColumn DisplayMemberBinding="{Binding Raw}"
+                                     Header="Raw" />
+                </GridView>
+                    <!--
+        public EndPoint Address { get; }
+        public int AgeSeconds { get; }
+        public ClientType ClientType { get; }
+        public int Database { get; }
+        public ClientFlags Flags { get; }
+        public string FlagsRaw { get; }
+        public string Host { get; }
+        public long Id { get; }
+        public int IdleSeconds { get; }
+        public string LastCommand { get; }
+        public string Name { get; }
+        public int PatternSubscriptionCount { get; }
+        public int Port { get; }
+        public string Raw { get; }
+        public int SubscriptionCount { get; }
+                    -->
+            </ListView.View>
+        </ListView>
+
+        <TextBlock Grid.Row="2" Grid.Column="0">Clients: <Run x:Name="NumberOfClients" /></TextBlock>
+
+        <Button Grid.Row="2" Grid.Column="2" Click="SaveClients">Save</Button>
+    </Grid>
+</Window>
