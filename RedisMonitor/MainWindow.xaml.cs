@@ -20,15 +20,15 @@ namespace RedisMonitor
             InitializeComponent();
         }
 
-        private void ConnectToRedis(object source, EventArgs args)
+        private async void ConnectToRedis(object source, EventArgs args)
         {
             var connectionString = string.Format("{0}:{1},allowAdmin=true", host.Text, port.Text);
             var serverAddress = string.Format("{0}:{1}", host.Text, port.Text);
 
-            var redis = ConnectionMultiplexer.Connect(connectionString);
+            var redis = await ConnectionMultiplexer.ConnectAsync(connectionString);
 
             var server = redis.GetServer(serverAddress);
-            clients = server.ClientList()
+            clients = (await server.ClientListAsync())
                 .OrderBy(c => c.Host)
                 .ThenByDescending(c => c.AgeSeconds)
                 .ToList();
